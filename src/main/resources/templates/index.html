@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<title>Peliculas</title>
+</head>
+<body>
+	<table>
+		<thead>
+			<tr>
+				<th>Titulo</th>
+				<th>Idioma</th>
+                <th>Descripcionsss</th>
+                <th>Acciones</th>
+			</tr>
+		</thead>
+		<tbody th:each="pelicula :${peliculas}">
+			<tr>
+				<td th:text="${pelicula.titulo}">pp</td>
+				<td th:text="${pelicula.idiomas}"></td>
+                <td th:text="${pelicula.descripcion}"></td>
+                <td>
+                    <a href="" th:href="@{/eliminarPelicula(id=${pelicula.idPelicula})}">Eliminar</a>
+                    <a href="" th:href="@{/editarPelicula(id=${pelicula.idPelicula})}">Editar</a>
+                </td>
+            </tr>
+            
+		</tbody>
+	</table>
+	<a href="" th:href="@{/agregarPelicula}">Agregar Pelicula</a>
+</body>
+</html>
