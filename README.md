@@ -1,2 +1,0 @@
-# peliculas
-web de peliculas 
