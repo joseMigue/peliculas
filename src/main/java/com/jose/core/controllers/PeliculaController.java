@@ -1,12 +1,13 @@
 package com.jose.core.controllers;
 
-import java.util.Optional;
+import javax.validation.Valid;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,6 @@ public class PeliculaController {
 
 	private static final String PELICULA_INDEX = "index";
 	private static final String PELICULA_FORM = "pelicula_new";
-	private static final String PELICULA_EDIT = "pelicula_edit";
 	
 	private static final Log LOG = LogFactory.getLog(PeliculaController.class);
 	
@@ -53,12 +53,14 @@ public class PeliculaController {
 	}
 	
 	@PostMapping("/guardarPelicula")
-	public RedirectView guardarPelicula(@ModelAttribute(name = "pelicula")Pelicula pelicula) {
-		ModelAndView mav = new ModelAndView(PELICULA_INDEX);
-		peliculaService.guardarPelicula(pelicula);
-		RedirectView rv = new RedirectView("peliculas");
-		LOG.info("URL: /guardarPelicula -- METHOD: guardarPelicula() -- PARAM: "+pelicula.toString());
-		return rv;
+	public String guardarPelicula(@Valid @ModelAttribute(name = "pelicula")Pelicula pelicula,BindingResult bindingResult) {
+		if (bindingResult.hasErrors()) {
+			return PELICULA_FORM;
+		}else {
+			LOG.info("URL: /guardarPelicula -- METHOD: guardarPelicula() -- PARAM: "+pelicula.toString());
+			peliculaService.guardarPelicula(pelicula);
+			return "redirect:/peliculas";
+		}		
 	}
 	
 	@GetMapping("/editarPelicula")
