@@ -23,6 +23,8 @@
         <span th:if="${#fields.hasErrors('idiomas')}" th:errors="*{idiomas}"></span>
         <br>
         <input type="submit" value="enviar">
+          <a th:href="@{/cancel}">cancel</a>
     </form>
+  
 </body>
 </html>

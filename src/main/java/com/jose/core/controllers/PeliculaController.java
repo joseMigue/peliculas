@@ -29,6 +29,12 @@ public class PeliculaController {
 	@Autowired
 	private PeliculaService peliculaService;
 	
+	@GetMapping("/cancel")
+	public RedirectView cancel() {
+		LOG.info("URL: /cancel -- METHOD: cancel()");
+		RedirectView rv = new RedirectView("peliculas");
+		return rv;
+	}
 	@GetMapping("/peliculas")
 	public String listaPeliculas(Model model) {
 		model.addAttribute("peliculas", peliculaService.listaPeliculas());
