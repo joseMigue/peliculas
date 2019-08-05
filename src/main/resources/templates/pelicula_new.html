@@ -1,29 +1,31 @@
 <!DOCTYPE html>
-<html lang="es|">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Peliculas</title>
+<html lang="es">
+<head th:replace="@{head}::head">
 </head>
 <body>
+
     <form th:action="@{/guardarPelicula}" th:object="${pelicula}" method="POST">
     	<input type="hidden" th:field= "*{idPelicula}">
-        
-        Titulo
-        <input type="text" th:field="*{titulo}">
+        <div class="form-group">
+		<label>Titulo</label>
+        <input type="text" class="form-control" th:field="*{titulo}" >
         <span th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
-        <br>
-        Descripcion
-        <input type="text" th:field="*{descripcion}">
+        </div>
+        <div>
+        <label>Descripcion</label>
+        <input type="text" class="form-control"th:field="*{descripcion}">
         <span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></span>
-        <br>
-        Idiomas
-        <input type="text" th:field="*{idiomas}">
+        </div>
+        <div>
+        <label>Idiomas</label>
+        <input type="text" class="form-control"th:field="*{idiomas}">
         <span th:if="${#fields.hasErrors('idiomas')}" th:errors="*{idiomas}"></span>
+        </div>    
         <br>
-        <input type="submit" value="enviar">
-          <a th:href="@{/cancel}">cancel</a>
+        <button class="btn btn-primary btn-lg"type="submit" value="enviar">Enviar</button>
+        <a th:href="@{/cancel}">
+      		<button class="btn btn-danger btn-lg">Cancel</button>    
+        </a>
     </form>
   
 </body>

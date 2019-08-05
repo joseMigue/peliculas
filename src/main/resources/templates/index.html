@@ -1,18 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="ie=edge">
-<title>Peliculas</title>
+<html lang="es">
+<head th:replace="@{head}::head">
 </head>
 <body>
-	<table>
+	<table class="table table-bordered ">
 		<thead>
 			<tr>
 				<th>Titulo</th>
 				<th>Idioma</th>
-                <th>Descripcionsss</th>
+                <th>Descripcion</th>
                 <th>Acciones</th>
 			</tr>
 		</thead>
@@ -22,12 +18,18 @@
 				<td th:text="${pelicula.idiomas}"></td>
                 <td th:text="${pelicula.descripcion}"></td>
                 <td>
-                    <a href="" th:href="@{/eliminarPelicula(id=${pelicula.idPelicula})}">Eliminar</a>
-                    <a href="" th:href="@{/editarPelicula(id=${pelicula.idPelicula})}">Editar</a>
+                	<a href="" th:href="@{/editarPelicula(id=${pelicula.idPelicula})}">
+                    	<button class="btn btn-primary">Editar</button>
+                    </a>
+                    <a href="" th:href="@{/eliminarPelicula(id=${pelicula.idPelicula})}">
+                    	<button class="btn btn-danger">Eliminar</button>
+                    </a>                                     
                 </td>
             </tr>
 		</tbody>
 	</table>
-	<a href="" th:href="@{/crearPelicula}">Agregar Pelicula</a>
+	<a href="" th:href="@{/crearPelicula}">
+	<button class="btn btn-primary btn-lg">Agregar Pelicula</button>
+	</a>
 </body>
 </html>
