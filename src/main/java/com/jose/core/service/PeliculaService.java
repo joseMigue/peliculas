@@ -31,8 +31,8 @@ public class PeliculaService {
 		peliculaRepository.deleteById(id);
 	}
 	
-	public Optional<Pelicula> buscarPeliculaId(int id) {
-		return peliculaRepository.findById(id);
+	public Pelicula buscarPeliculaId(int id) {
+		return peliculaRepository.getOne(id);
 	}
 	
 	public Pelicula buscarPeliculaTitulo(String titulo) {

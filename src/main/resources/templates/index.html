@@ -18,7 +18,7 @@
 		</thead>
 		<tbody th:each="pelicula :${peliculas}">
 			<tr>
-				<td th:text="${pelicula.titulo}">pp</td>
+				<td th:text="${pelicula.titulo}"></td>
 				<td th:text="${pelicula.idiomas}"></td>
                 <td th:text="${pelicula.descripcion}"></td>
                 <td>
@@ -26,9 +26,8 @@
                     <a href="" th:href="@{/editarPelicula(id=${pelicula.idPelicula})}">Editar</a>
                 </td>
             </tr>
-            
 		</tbody>
 	</table>
-	<a href="" th:href="@{/agregarPelicula}">Agregar Pelicula</a>
+	<a href="" th:href="@{/crearPelicula}">Agregar Pelicula</a>
 </body>
 </html>
