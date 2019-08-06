@@ -18,8 +18,14 @@ public class PeliculaService {
 		return peliculaRepository.findAll();
 	}
 	
-	public void guardarPelicula(Pelicula entity) {
-		peliculaRepository.save(entity);
+	public boolean guardarPelicula(Pelicula entity) {
+		try {
+			peliculaRepository.save(entity);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+		
 	}
 	
 	public void eliminarPelicula(Pelicula entity) {
@@ -37,12 +43,11 @@ public class PeliculaService {
 	public Pelicula buscarPeliculaTitulo(Pelicula pelicula) {
 		return peliculaRepository.findByTitulo(pelicula.getTitulo());
 	}
-	public boolean existePelicula(Pelicula pelicula) {
-		Pelicula peli = peliculaRepository.findByTitulo(pelicula.getTitulo()); 		
-		if (peli != null && pelicula.getIdPelicula() == peli.getIdPelicula()) {
-			return true;
-		}else {
-			return false;
-		}
+	
+	public List<Pelicula> peliculasEspañol(){
+		return peliculaRepository.findByIdiomas("Español latino");
+	}
+	public List<Pelicula> peliculasIngles(){
+		return peliculaRepository.findByIdiomas("Ingles");
 	}
 }

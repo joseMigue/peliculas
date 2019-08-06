@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="es">
+<head th:replace="@{index}::head">
+<meta charset="UTF-8">
+</head>
+
+<nav th:fragment="nav">
+	<a th:href="@{/peliculas}"> Peliculas</a>
+	<a th:href="@{/peliculasEspañol}">Español</a>
+	<a th:href="@{/peliculasIngles}">Ingles</a>
+</nav>	

@@ -64,16 +64,14 @@ public class PeliculaController {
 		if (bindingResult.hasErrors()) {
 			return PELICULA_FORM;
 		}else {
-			LOG.info("URL: /guardarPelicula -- METHOD: guardarPelicula() -- PARAM: "+pelicula.toString());
-			if (peliculaService.existePelicula(pelicula)) {
-				peliculaService.guardarPelicula(pelicula);
-				return "redirect:/peliculas";
-			}else {
-				boolean existe = true;
-				model.addAttribute("existe",existe);
-				return PELICULA_FORM;
-			}
-		}		
+				if (peliculaService.guardarPelicula(pelicula)) {
+					return "redirect:/peliculas";
+				}else {
+					boolean existe= true;
+					model.addAttribute("existe", existe);
+					return PELICULA_FORM;
+				}
+			}		
 	}
 	
 	@GetMapping("/editarPelicula")
@@ -84,5 +82,19 @@ public class PeliculaController {
 		LOG.info("Pelicula a editar: "+pelicula.toString());
 		mav.addObject("pelicula", pelicula);
 		return mav;
+	}
+	
+	@GetMapping("/peliculasEspañol")
+	public String peliculasEspañol(Model model){
+		LOG.info("URL: /peliculasEspañol -- METHOD: peliculasEspañol()");
+		model.addAttribute("peliculas", peliculaService.peliculasEspañol());
+		return PELICULA_INDEX;
+	}
+	
+	@GetMapping("/peliculasIngles")
+	public String peliculasIngles(Model model){
+		LOG.info("URL: /peliculasIngles  --  METHOD: peliculasIngles()");
+		model.addAttribute("peliculas", peliculaService.peliculasIngles());
+		return PELICULA_INDEX;
 	}
 }
