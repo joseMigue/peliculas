@@ -22,7 +22,8 @@ import com.jose.core.service.PeliculaService;
 public class PeliculaController {
 
 	private static final String PELICULA_INDEX = "index";
-	private static final String PELICULA_FORM = "pelicula_new";
+	private static final String PELICULA_FORM = "pelicula_form";
+	private static final String PELICULA_SHOW = "pelicula_show";
 	
 	private static final Log LOG = LogFactory.getLog(PeliculaController.class);
 	
@@ -59,13 +60,19 @@ public class PeliculaController {
 	}
 	
 	@PostMapping("/guardarPelicula")
-	public String guardarPelicula(@Valid @ModelAttribute(name = "pelicula")Pelicula pelicula,BindingResult bindingResult) {
+	public String guardarPelicula(@Valid @ModelAttribute(name = "pelicula")Pelicula pelicula,BindingResult bindingResult, Model model) {
 		if (bindingResult.hasErrors()) {
 			return PELICULA_FORM;
 		}else {
 			LOG.info("URL: /guardarPelicula -- METHOD: guardarPelicula() -- PARAM: "+pelicula.toString());
-			peliculaService.guardarPelicula(pelicula);
-			return "redirect:/peliculas";
+			if (peliculaService.existePelicula(pelicula)) {
+				peliculaService.guardarPelicula(pelicula);
+				return "redirect:/peliculas";
+			}else {
+				boolean existe = true;
+				model.addAttribute("existe",existe);
+				return PELICULA_FORM;
+			}
 		}		
 	}
 	

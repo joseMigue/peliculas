@@ -34,7 +34,15 @@ public class PeliculaService {
 		return peliculaRepository.getOne(id);
 	}
 	
-	public Pelicula buscarPeliculaTitulo(String titulo) {
-		return peliculaRepository.findByTitulo(titulo);
+	public Pelicula buscarPeliculaTitulo(Pelicula pelicula) {
+		return peliculaRepository.findByTitulo(pelicula.getTitulo());
+	}
+	public boolean existePelicula(Pelicula pelicula) {
+		Pelicula peli = peliculaRepository.findByTitulo(pelicula.getTitulo()); 		
+		if (peli != null && pelicula.getIdPelicula() == peli.getIdPelicula()) {
+			return true;
+		}else {
+			return false;
+		}
 	}
 }

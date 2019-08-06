@@ -3,7 +3,7 @@
 <head th:replace="@{head}::head">
 </head>
 <body>
-
+	<span th:if="${existe}">La pelicula ya existe</span>
     <form th:action="@{/guardarPelicula}" th:object="${pelicula}" method="POST">
     	<input type="hidden" th:field= "*{idPelicula}">
         <div class="form-group">
@@ -21,12 +21,10 @@
         <input type="text" class="form-control"th:field="*{idiomas}">
         <span th:if="${#fields.hasErrors('idiomas')}" th:errors="*{idiomas}"></span>
         </div>    
-        <br>
         <button class="btn btn-primary btn-lg"type="submit" value="enviar">Enviar</button>
+    </form>
         <a th:href="@{/cancel}">
       		<button class="btn btn-danger btn-lg">Cancel</button>    
         </a>
-    </form>
-  
 </body>
 </html>
