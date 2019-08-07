@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.jose.core.model.Genero;
 import com.jose.core.model.Pelicula;
+import com.jose.core.repository.GeneroRepository;
 import com.jose.core.repository.PeliculaRepository;
 
 @Service
@@ -13,6 +15,8 @@ public class PeliculaService {
 
 	@Autowired
 	private PeliculaRepository peliculaRepository;
+	@Autowired
+	private GeneroRepository generoRepository;
 	
 	public List<Pelicula> listaPeliculas(){
 		return peliculaRepository.findAll();
@@ -44,10 +48,8 @@ public class PeliculaService {
 		return peliculaRepository.findByTitulo(pelicula.getTitulo());
 	}
 	
-	public List<Pelicula> peliculasEspañol(){
-		return peliculaRepository.findByIdiomas("Español latino");
-	}
-	public List<Pelicula> peliculasIngles(){
-		return peliculaRepository.findByIdiomas("Ingles");
+	public List<Pelicula> peliculaGenero(String nombre){
+		Genero genero = generoRepository.findByNombre(nombre); 
+		return peliculaRepository.findByGenero(genero);
 	}
 }

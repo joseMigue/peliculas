@@ -7,4 +7,5 @@ import com.jose.core.model.Genero;
 @Repository
 public interface GeneroRepository extends JpaRepository<Genero, Integer> {
 
+	public Genero findByNombre(String nombre);
 }

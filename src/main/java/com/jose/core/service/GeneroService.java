@@ -21,4 +21,7 @@ public class GeneroService {
 	public Genero buscarGenero(int id) {
 		return generoRepository.getOne(id);
 	}
+	public Genero buscarNombre(String nombre) {
+		return generoRepository.findByNombre(nombre);
+	}
 }

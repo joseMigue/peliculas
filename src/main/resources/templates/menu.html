@@ -4,8 +4,14 @@
 <meta charset="UTF-8">
 </head>
 
-<nav th:fragment="nav">
-	<a th:href="@{/peliculas}"> Peliculas</a>
-	<a th:href="@{/peliculasEspañol}">Español</a>
-	<a th:href="@{/peliculasIngles}">Ingles</a>
+<nav th:fragment="nav{generos}">
+	<ol>
+		<li><a th:href="@{/peliculas}"> Peliculas</a></li>
+		<li th:each="genero : ${generos}">
+		<a  th:href="@{/genero(genero=${genero.nombre})}" th:text="${genero.nombre}">  </a>
+		</li>
+	</ol>
+	
+	
 </nav>	
+</html>

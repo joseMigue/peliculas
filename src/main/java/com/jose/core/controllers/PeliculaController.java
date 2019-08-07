@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
+import com.jose.core.model.Genero;
 import com.jose.core.model.Pelicula;
 import com.jose.core.service.GeneroService;
 import com.jose.core.service.PeliculaService;
@@ -43,9 +44,17 @@ public class PeliculaController {
 	public String listaPeliculas(Model model) {
 		model.addAttribute("peliculas", peliculaService.listaPeliculas());
 		LOG.info("URL : /peliculas  -- METHOD : listaPeliculas()");
+		model.addAttribute("generos", generoService.listaGeneros());
 		return PELICULA_INDEX;
 	}
 	
+	@GetMapping("/genero")
+	public String peliculaComendia(@ModelAttribute(name="genero")String nombre,Model model) {
+		LOG.info("URL: /genero  --  METHOD: peliculasGenero()" +nombre);
+		model.addAttribute("peliculas", peliculaService.peliculaGenero(nombre));
+		model.addAttribute("generos", generoService.listaGeneros());
+		return PELICULA_INDEX;
+	}
 	@GetMapping("/eliminarPelicula")
 	public RedirectView eliminarPelicula(@RequestParam(name = "id")int id) {
 		LOG.info("URL : /eliminarPelicula  -- METHOD : eliminarPelicula() -- PARAM : ID=  "+id);
@@ -90,18 +99,5 @@ public class PeliculaController {
 		mav.addObject("generos", generoService.listaGeneros());
 		return mav;
 	}
-	
-	@GetMapping("/peliculasEspañol")
-	public String peliculasEspañol(Model model){
-		LOG.info("URL: /peliculasEspañol -- METHOD: peliculasEspañol()");
-		model.addAttribute("peliculas", peliculaService.peliculasEspañol());
-		return PELICULA_INDEX;
-	}
-	
-	@GetMapping("/peliculasIngles")
-	public String peliculasIngles(Model model){
-		LOG.info("URL: /peliculasIngles  --  METHOD: peliculasIngles()");
-		model.addAttribute("peliculas", peliculaService.peliculasIngles());
-		return PELICULA_INDEX;
-	}
+
 }
