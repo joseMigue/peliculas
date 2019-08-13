@@ -33,6 +33,18 @@ public class UsuarioService implements UserDetailsService{
 		return usuarioRepository.findAll();
 	}
 	
+	public void bloquearUsuario(int id) {
+		Usuario usuario = this.buscarUsuario(id);
+		usuario.setEnabled(false);
+		usuarioRepository.save(usuario);
+	}
+	
+	public void desbloquearUsuario(int id) {
+		Usuario usuario = this.buscarUsuario(id);
+		usuario.setEnabled(true);
+		usuarioRepository.save(usuario);
+	}	
+	
 	public boolean guardarUsuario(Usuario user) {
 		try {
 			usuarioRepository.save(user);
@@ -89,7 +101,8 @@ public class UsuarioService implements UserDetailsService{
 			GrantedAuthority grantedAuthority = new SimpleGrantedAuthority(authority.getAuthority());
 			grantList.add(grantedAuthority);
 		}
-		UserDetails userDetails = new User(user.getUsername(),user.getPassword(),grantList);
+		//UserDetails userDetails = new User(user.getUsername(),user.getPassword(),grantList);
+		UserDetails userDetails = new User(user.getUsername(),user.getPassword(),user.isEnabled(),true,true,true,grantList);
 		return userDetails;
 	}
 	

@@ -29,8 +29,8 @@
 	  				<a class="btn btn-primary"th:href="@{/editarPelicula(id=${pelicula.idPelicula})}">Editar</a>
 	  			</div>
 	  			<div sec:authorize="hasRole('ROLE_USER')">
-	  				<a class="btn btn-danger"th:href="@{/agregarFavorito(id=${pelicula.idPelicula})}">Agregar Favorito</a>
-	  				<a class="btn btn-primary"th:href="@{/eliminarFavorito(id=${pelicula.idPelicula})}">Eliminar Favorito</a>
+	  				<a class="btn btn-primary"th:href="@{/agregarFavorito(id=${pelicula.idPelicula})}">Agregar Favorito</a>
+	  				<a class="btn btn-danger"th:href="@{/eliminarFavorito(id=${pelicula.idPelicula})}">Eliminar Favorito</a>
 	  			</div>
   			</td>
   		</tr>
@@ -45,13 +45,13 @@
 		</tr>
 	</thead>
 	<tbody>
-		<tr th:each="pelicula : ${usuarios}">
-  			<td th:text="${pelicula.id}"></td>
-  			<td th:text="${pelicula.username}"></td>
-  			<td th:text="${pelicula.password}"></td>
+		<tr th:each="usuario : ${usuarios}">
+  			<td th:text="${usuario.id}"></td>
+  			<td th:text="${usuario.username}"></td>
+  			<td th:text="${usuario.password}"></td>
   			<td>
-  				<a class="btn btn-danger"th:href="@{/eliminarPelicula(id=${pelicula.id})}">Eliminar</a>
-  				<a class="btn btn-primary"th:href="@{/editarPelicula(id=${pelicula.id})}">Editar</a>
+  				<a th:if="${usuario.enabled}"class="btn btn-danger"   th:href="@{/bloquearUsuario(id=${usuario.id})}" >Bloquear</a>
+  				<a th:unless="${usuario.enabled}"class="btn btn-success"   th:href="@{/desbloquearUsuario(id=${usuario.id})}" >Desbloquear</a>
   			</td>
   		</tr>
 	</tbody>

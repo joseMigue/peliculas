@@ -42,7 +42,6 @@ public class UsuarioController {
 		return "redirect:/administrador";
 	}
 
-
 	@GetMapping("/usuario")
 	public String usuario(Model model, Principal principal) {
 		LOG.info("URL: /usuario  ---  METODO: usuario()");

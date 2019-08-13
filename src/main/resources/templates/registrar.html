@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="fragment/head">
+<meta charset="UTF-8">
+<title>Registro</title>
+</head>
+<body>
+<div class="container">
+	<form class="border border-light p-5" th:action="@{login}"method="post">
+		<p class="h4 mb-4 text-center">Sign in</p>
+		<input type="text" class="form-control mb-4" placeholder="Username"name="username"> 
+		<input type="text"class="form-control mb-4" placeholder="Password" name="password">
+		<div class="d-flex justify-content-between">
+			<div class="custom-control custom-checkbox">
+				<input type="checkbox" class="custom-control-input"	id="defaultLoginFormRemember"> 
+				<label class="custom-control-label" for="defaultLoginFormRemember">Remember me</label>
+			</div>
+		</div>
+	</form>
+</div>
+</body>
+</html>

@@ -9,6 +9,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import com.jose.core.constantes.Pagina;
 import com.jose.core.model.Pelicula;
@@ -48,5 +49,16 @@ public class AdministradorController {
 		LOG.info("usuarios: "+listaUsuario);
 		LOG.info("nombreTabla: "+"Usuarios");
 		return Pagina.ADMINISTRADOR;
+	}
+
+	@GetMapping("bloquearUsuario")
+	public String bloquearUsuario(@ModelAttribute(name="id")int id) {
+		usuarioService.bloquearUsuario(id);
+		return "redirect:/usuarios";
+	}
+	@GetMapping("desbloquearUsuario")
+	public String desbloquearUsuario(@ModelAttribute(name="id")int id) {
+		usuarioService.desbloquearUsuario(id);
+		return "redirect:/usuarios";
 	}
 }
