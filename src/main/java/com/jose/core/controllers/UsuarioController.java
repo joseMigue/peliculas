@@ -116,8 +116,8 @@ public class UsuarioController {
 	}
 	@Secured("ROLE_USER")
 	@GetMapping("/agregarFavorito")
-	public String agregarFavorito(@ModelAttribute(name="id")int id,Model model) {
-		usuarioService.guardarPeliculaFavorita(id);
+	public String agregarFavorito(@ModelAttribute(name="id")int id,Principal principal,Model model) {
+		usuarioService.guardarPeliculaFavorita(id,principal.getName());
 		return "redirect:/usuario";
 	}
 }

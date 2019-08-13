@@ -44,9 +44,15 @@ public class UsuarioService implements UserDetailsService{
 		}
 	}
 
-	public void guardarPeliculaFavorita(int id) {
-		Pelicula peli = peliculaService.buscarPeliculaId(id);
-		
+	public void guardarPeliculaFavorita(int id,String username) {
+		try {
+			Usuario user = usuarioRepository.findByUsername(username);
+			Pelicula peli = peliculaService.buscarPeliculaId(id);
+			user.agregarFavorito(peli);
+			usuarioRepository.save(user);
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	public Set<Pelicula> peliculasFavoritas(Usuario usuario){
 		

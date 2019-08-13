@@ -29,8 +29,8 @@
 	  				<a class="btn btn-primary"th:href="@{/editarPelicula(id=${pelicula.idPelicula})}">Editar</a>
 	  			</div>
 	  			<div sec:authorize="hasRole('ROLE_USER')">
-	  				<a class="btn btn-danger"th:href="@{/eliminarPelicula(id=${pelicula.idPelicula})}">Agregar Favorito</a>
-	  				<a class="btn btn-primary"th:href="@{/editarPelicula(id=${pelicula.idPelicula})}">Ver</a>
+	  				<a class="btn btn-danger"th:href="@{/agregarFavorito(id=${pelicula.idPelicula})}">Agregar Favorito</a>
+	  				<a class="btn btn-primary"th:href="@{/eliminarFavorito(id=${pelicula.idPelicula})}">Eliminar Favorito</a>
 	  			</div>
   			</td>
   		</tr>

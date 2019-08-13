@@ -75,6 +75,10 @@ public class Usuario {
 	public void setFavoritos(Set<Pelicula> favoritos) {
 		this.favoritos = favoritos;
 	}
+	
+	public void agregarFavorito(Pelicula pelicula) {
+		this.favoritos.add(pelicula);
+	}
 
 	@Override
 	public String toString() {
