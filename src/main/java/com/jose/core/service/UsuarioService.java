@@ -2,7 +2,6 @@ package com.jose.core.service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,6 @@ import org.springframework.stereotype.Service;
 import com.jose.core.model.Authority;
 import com.jose.core.model.Pelicula;
 import com.jose.core.model.Usuario;
-import com.jose.core.repository.PeliculaRepository;
 import com.jose.core.repository.UsuarioRepository;
 
 @Service
@@ -49,9 +47,20 @@ public class UsuarioService implements UserDetailsService{
 			Usuario user = usuarioRepository.findByUsername(username);
 			Pelicula peli = peliculaService.buscarPeliculaId(id);
 			user.agregarFavorito(peli);
-			usuarioRepository.save(user);
+			this.guardarUsuario(user);
 		} catch (Exception e) {
 			// TODO: handle exception
+		}
+	}
+	
+	public void eliminarPeliculaFavorita(int id,String username) {
+		try {
+			Usuario user = usuarioRepository.findByUsername(username);
+			Pelicula pelicula = peliculaService.buscarPeliculaId(id);
+			user.getFavoritos().remove(pelicula);
+			this.guardarUsuario(user);
+		} catch (Exception e) {
+
 		}
 	}
 	public Set<Pelicula> peliculasFavoritas(Usuario usuario){

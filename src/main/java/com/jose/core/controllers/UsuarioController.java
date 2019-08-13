@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import com.jose.core.constantes.Pagina;
 import com.jose.core.model.Genero;
 import com.jose.core.model.Pelicula;
-import com.jose.core.model.Usuario;
 import com.jose.core.service.GeneroService;
 import com.jose.core.service.PeliculaService;
 import com.jose.core.service.UsuarioService;
 
 @Controller
+@Secured("ROLE_USER")
 public class UsuarioController {
 	
 	
@@ -41,12 +41,8 @@ public class UsuarioController {
 		LOG.info("URL: /cancel --- METODO: cancel()");
 		return "redirect:/administrador";
 	}
-	@GetMapping("/login")
-	public String login() {
-		LOG.info("URL: /login  --- METODO: login()");
-		return Pagina.LOGIN;
-	}
-	@Secured("ROLE_USER")
+
+
 	@GetMapping("/usuario")
 	public String usuario(Model model, Principal principal) {
 		LOG.info("URL: /usuario  ---  METODO: usuario()");
@@ -60,7 +56,7 @@ public class UsuarioController {
 		LOG.info("generos: "+generos);
 		return Pagina.USUARIO;
 	}
-	
+
 	@GetMapping("favoritos")
 	public String favoritos(Model model,Principal principal) {
 		LOG.info("URL: /favoritos  ---  METODO: favoritos()");	
@@ -73,31 +69,9 @@ public class UsuarioController {
 		LOG.info("generos: "+generos);
 		return Pagina.USUARIO;
 	}
-	@Secured("ROLE_ADMIN")
-	@GetMapping("/administrador")
-	public String administrador(Model model) {
-		List<Pelicula> listaPeliculas = peliculaService.listaPeliculas();
-		model.addAttribute("peliculas", listaPeliculas);	
-		model.addAttribute("nombreTabla","Peliculas");
-		LOG.info("URL: /administrador  --- METODO: administrador()");
-		LOG.info("PARAMETROS ENVIADOS: ");
-			LOG.info("peliculas= "+listaPeliculas);
-			LOG.info("nombreTabla= "+"Peliculas");
-		return Pagina.ADMINISTRADOR;
-	}
-	@Secured("ROLE_ADMIN")
-	@GetMapping("usuarios")
-	public String usuarios(Model model) {
-		List<Usuario> listaUsuario = usuarioService.listaUsuario();
-		model.addAttribute("usuarios", listaUsuario);
-		model.addAttribute("nombreTabla","Usuarios");
-		LOG.info("URL: /usuarios  ---  METODO: usuarios()");
-		LOG.info("PARAMETROS ENVIADOS");
-		LOG.info("usuarios: "+listaUsuario);
-		LOG.info("nombreTabla: "+"Usuarios");
-		return Pagina.ADMINISTRADOR;
-	}
-	@Secured("ROLE_USER")
+
+
+
 	@GetMapping("/genero")
 	public String peliculaGenero(@ModelAttribute(name="genero")String genero,Model model) {
 		List<Pelicula> peliculaGenero = peliculaService.peliculaGenero(genero);
@@ -114,11 +88,23 @@ public class UsuarioController {
 		LOG.info("nombreTable= "+"Peliculas");
 		return Pagina.USUARIO;
 	}
-	@Secured("ROLE_USER")
+
 	@GetMapping("/agregarFavorito")
 	public String agregarFavorito(@ModelAttribute(name="id")int id,Principal principal,Model model) {
 		usuarioService.guardarPeliculaFavorita(id,principal.getName());
+		LOG.info("URL: /agregarFavorito   ---   METODO: agregarFavorito()");
+		LOG.info("PARAMETRO RECIBIDO: id= "+id);
 		return "redirect:/usuario";
+	}
+	
+
+	@GetMapping("eliminarFavorito")
+	public String eliminarFavorito(@ModelAttribute(name="id")int id,Principal principal) {
+		usuarioService.eliminarPeliculaFavorita(id, principal.getName());
+		LOG.info("URL: /eliminarFavorito   ---   METODO: eliminarFavorito()");
+		LOG.info("PARAMETRO RECIBIDO: id= "+id);
+		LOG.info("VISTA REDIRIGIDA: /favoritos");
+		return "redirect:/favoritos";
 	}
 }
 
