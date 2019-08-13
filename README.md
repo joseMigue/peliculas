@@ -1,2 +1,6 @@
 # peliculas
-pagina web con spring boot de peliculas 
+pagina web con Spring boot
+               Spring security
+               JPA
+               Thymeleaf
+               Bootstrap 4
