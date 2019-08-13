@@ -1,6 +1,5 @@
 package com.jose.core.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -27,7 +26,7 @@ public class Pelicula {
 	private String descripcion;
 	@NotEmpty
 	private String idiomas;
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne()
 	private Genero genero;
 	public Pelicula() {
 		
@@ -73,12 +72,12 @@ public class Pelicula {
 	public void setGenero(Genero genero) {
 		this.genero = genero;
 	}
+
 	@Override
 	public String toString() {
-		return "Pelicula [idPelicula=" + idPelicula + ", Titulo=" + titulo + ", descripcion=" + descripcion
-				+ ", idiomas=" + idiomas + "]";
+		return "Pelicula [idPelicula=" + idPelicula + ", titulo=" + titulo + ", descripcion=" + descripcion
+				+ ", idiomas=" + idiomas + ", genero=" + genero + "]";
 	}
-	
 	
 	
 }

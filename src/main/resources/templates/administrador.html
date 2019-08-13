@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head th:replace="/fragment/head::head">
+<meta charset="UTF-8">
+
+<title>Insert title here</title>
+</head>
+<body>
+	
+	<nav th:replace="/fragment/menu::menu">	
+	</nav>
+	<table th:replace="fragment/tabla::tabla+${nombreTabla}">
+	</table>
+</body>
+</html>

@@ -18,6 +18,9 @@ public class PeliculaService {
 	@Autowired
 	private GeneroRepository generoRepository;
 	
+	public Pelicula crearPelicula() {
+		return new Pelicula();
+	}
 	public List<Pelicula> listaPeliculas(){
 		return peliculaRepository.findAll();
 	}
