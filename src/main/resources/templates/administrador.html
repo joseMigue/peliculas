@@ -9,7 +9,9 @@
 	
 	<nav th:replace="/fragment/menu::menu">	
 	</nav>
-	<table th:replace="fragment/tabla::tabla+${nombreTabla}">
-	</table>
+	<div class="container">
+		<table th:replace="fragment/tabla::tabla+${nombreTabla}">
+		</table>
+	</div>
 </body>
 </html>

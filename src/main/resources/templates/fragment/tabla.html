@@ -40,15 +40,23 @@
 	<thead>
 		<tr>
 			<td>ID</td>
-			<td>Username</td>
-			<td>Password</td>
+			<td>Username</td>		
+			<td>Nombre</td>
+			<td>Apellido</td>
+			<td>Telefono</td>
+			<td>Rol</td>
+			<td>Estado</td>
 		</tr>
 	</thead>
 	<tbody>
 		<tr th:each="usuario : ${usuarios}">
   			<td th:text="${usuario.id}"></td>
   			<td th:text="${usuario.username}"></td>
-  			<td th:text="${usuario.password}"></td>
+  			<td th:text="${usuario.nombre}"></td>
+  			<td th:text="${usuario.apellido}"></td>
+  			<td th:text="${usuario.telefono}"></td>
+  			<td th:text="${usuario.roles()}"></td>
+  			<td th:text="${usuario.enabled}"></td>
   			<td>
   				<a th:if="${usuario.enabled}"class="btn btn-danger"   th:href="@{/bloquearUsuario(id=${usuario.id})}" >Bloquear</a>
   				<a th:unless="${usuario.enabled}"class="btn btn-success"   th:href="@{/desbloquearUsuario(id=${usuario.id})}" >Desbloquear</a>

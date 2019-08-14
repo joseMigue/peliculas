@@ -9,6 +9,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotEmpty;
 
 @Entity
 public class Usuario {
@@ -17,11 +19,16 @@ public class Usuario {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	@Column(unique = true)
+	@NotEmpty
 	private String username;
+	@NotEmpty
 	private String password;
 	private boolean enabled;
+	@NotEmpty
 	private String nombre;
+	@NotEmpty
 	private String apellido;
+	@NotEmpty
 	private String telefono;
 	@ManyToMany(fetch = FetchType.EAGER)
 	private Set<Authority> authority;
@@ -81,6 +88,13 @@ public class Usuario {
 		return authority;
 	}
 
+	public String roles() {
+		String roles = "";
+		for (Authority authority2 : authority) {
+			roles = authority2.getAuthority() +"        "+ roles;
+		}
+		return roles;
+	}
 	public void setAuthority(Set<Authority> authority) {
 		this.authority = authority;
 	}

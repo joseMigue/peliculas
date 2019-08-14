@@ -1,10 +1,13 @@
 package com.jose.core.controllers;
 
+import javax.validation.Valid;
+
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -33,11 +36,17 @@ public class LoginController {
 		return "registrar";
 	}
 	@PostMapping("/guardarUsuario")
-	public String guardarUsuario(@ModelAttribute(name="usuario")Usuario usuario) {
+	public String guardarUsuario(@Valid @ModelAttribute(name="usuario")Usuario usuario,BindingResult bindingResult, Model model) {
 		LOG.info("URL: /guardarUsuario  --- METODO: guardarUsuario()");
-		LOG.info(usuario.toString());
-		boolean ok = usuarioService.guardarUsuarioRegistrado(usuario);
-		LOG.info(ok);
-		return "login";
+		if (bindingResult.hasErrors()) {
+			return "registrar";
+		}else {
+			if (usuarioService.guardarUsuarioRegistrado(usuario)) {				
+				return "login";
+			}else {
+				model.addAttribute("existe", new Boolean(true));
+				return "registrar";
+			}
+		}
 	}
 }

@@ -42,7 +42,7 @@ public class AdministradorController {
 
 	@GetMapping("usuarios")
 	public String usuarios(Model model) {
-		List<Usuario> listaUsuario = usuarioService.listaUsuario();
+		List<Usuario> listaUsuario = usuarioService.listaUsuarioRoleUsuario();
 		model.addAttribute("usuarios", listaUsuario);
 		model.addAttribute("nombreTabla","Usuarios");
 		LOG.info("URL: /usuarios  ---  METODO: usuarios()");

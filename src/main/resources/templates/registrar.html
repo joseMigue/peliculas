@@ -6,15 +6,28 @@
 </head>
 <body>
 <div class="container">
+	
 	<form class="border border-light p-5" th:action="@{/guardarUsuario}" th:object="${usuario}"method="post">
 		<p class="h4 mb-4 text-center">Registrar</p>
+		<p class="h4 mb-4"th:if="${existe}">El Username ya existe</p>
+		
+		<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}"></span>
 		<input type="text" class="form-control mb-4" placeholder="Username"name="username" th:field="*{username}"> 
+		
+		<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></span>
 		<input type="text"class="form-control mb-4" placeholder="Contraseña" name="password" th:field="*{password}">
+		
+		<span th:if="${#fields.hasErrors('nombre')}" th:errors="*{nombre}"></span>
 		<input type="text"class="form-control mb-4" placeholder="Nombre" name="nombre" th:field="*{nombre}">
+		
+		<span th:if="${#fields.hasErrors('apellido')}" th:errors="*{apellido}"></span>
 		<input type="text"class="form-control mb-4" placeholder="Apellido" name="apellido" th:field="*{apellido}">
-		<input type="text"class="form-control mb-4" placeholder="Telefono" name="telefono" th:field="*{telefono}">
+		
+		<span th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}"></span>
+		<input type="text"class="form-control mb-4" placeholder="Telefono" name="telefono" th:field="*{telefono}">		
+		
 		<button class="btn btn-info btn-block my-4" type="submit">Registrar</button>
-		<button class="btn btn-info btn-block my-4" type="reset">Reset</button>
+		<a th:href="@{/login}"><button class="btn btn-info btn-block my-4" type="button">Cancelar</button></a>
 	</form>
 </div>
 </body>

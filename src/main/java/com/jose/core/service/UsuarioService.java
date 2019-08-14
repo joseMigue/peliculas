@@ -38,6 +38,11 @@ public class UsuarioService implements UserDetailsService{
 		return usuarioRepository.findAll();
 	}
 	
+	public List<Usuario> listaUsuarioRoleUsuario(){
+		Authority authority = authorityService.buscarAuthority("ROLE_USER");
+		return usuarioRepository.findByAuthority(authority);
+	}
+	
 	public void bloquearUsuario(int id) {
 		Usuario usuario = this.buscarUsuario(id);
 		usuario.setEnabled(false);
@@ -71,6 +76,7 @@ public class UsuarioService implements UserDetailsService{
 			usuarioRepository.save(usuario);
 			return true;
 		} catch (Exception e) {
+			usuario.setPassword("");
 			return false;
 		}
 	}

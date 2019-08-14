@@ -5,28 +5,27 @@
 <body>
 	<nav th:replace="fragment/menu::menu">
 	</nav>
-	        <a th:href="@{/cancel}">
-      		<button class="btn btn-danger ">Volver</button>    
-        </a>
-	<span th:if="${existe}">La pelicula ya existe</span>
-    <form th:action="@{/guardarPelicula}" th:object="${pelicula}" method="POST">
+	    
+	
+	<div class="container">
+    <form class="border border-light p-5"th:action="@{/guardarPelicula}" th:object="${pelicula}" method="POST">
+    	<p class="h4 mb-4 text-center"th:if="${existe}">La pelicula ya existe</p>
+    	
     	<input type="hidden" th:field= "*{idPelicula}">
-        <div class="form-group">
-			<label for="pwd">Titulo</label>
-	        <input type="text" class="form-control" th:field="*{titulo}" >
-	        <span th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></span>
-        </div>
-        <div class="form-group">
-	        <label>Descripcion</label>
-	        <input type="text" class="form-control"th:field="*{descripcion}">
-	        <span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></span>
-        </div>
-        <div class="form-group">
-	        <label>Idiomas</label>
-	        <input type="text" class="form-control"th:field="*{idiomas}">
-	        <span th:if="${#fields.hasErrors('idiomas')}" th:errors="*{idiomas}"></span>
-        </div>
-        <div class="form-group">
+		
+		<p th:if="${#fields.hasErrors('titulo')}" th:errors="*{titulo}"></p>
+		<input type="text" class="form-control mb-4" th:field="*{titulo}" placeholder="Titulo" >
+		
+        
+		<span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></span>
+		<input type="text" class="form-control mb-4"th:field="*{descripcion}" placeholder="Descripcion">
+        
+        
+	    <span th:if="${#fields.hasErrors('idiomas')}" th:errors="*{idiomas}"></span>
+		<input type="text" class="form-control mb-4"th:field="*{idiomas}" placeholder="Idioma">
+	        
+        
+        <div class="form-group mb-4">
         	<label >Generos</label>
         	<select class="form-control"th:field="*{genero}">
         		<option th:each="genero: ${generos}"
@@ -35,8 +34,11 @@
         		</option>
         	</select>
         </div>    
-        <button class="btn btn-primary btn-lg"type="submit" value="enviar">Enviar</button>
+        <button class="btn btn-primary btn-block mb-4"type="submit" value="enviar">Enviar</button>
+    	<a th:href="@{/cancel}">
+      		<button class="btn btn-danger btn-block">Volver</button>    
+        </a>
     </form>
-
+</div>
 </body>
 </html>
