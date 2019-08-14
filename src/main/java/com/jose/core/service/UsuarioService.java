@@ -1,6 +1,7 @@
 package com.jose.core.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -11,9 +12,11 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.jose.core.model.Authority;
+import com.jose.core.model.Genero;
 import com.jose.core.model.Pelicula;
 import com.jose.core.model.Usuario;
 import com.jose.core.repository.UsuarioRepository;
@@ -25,7 +28,9 @@ public class UsuarioService implements UserDetailsService{
 	private UsuarioRepository usuarioRepository;
 	@Autowired
 	private PeliculaService peliculaService;
-
+	@Autowired
+	AuthorityService authorityService;
+	BCryptPasswordEncoder bCryptPasswordEncoder= new BCryptPasswordEncoder(4);
 	public Usuario crearUsuario() {
 		return new Usuario();
 	}
@@ -54,6 +59,21 @@ public class UsuarioService implements UserDetailsService{
 		}
 	}
 
+	public boolean guardarUsuarioRegistrado(Usuario usuario) {
+		try {
+			Authority authority = authorityService.buscarAuthority("ROLE_USER");
+			usuario.setAuthority(new HashSet<>());
+			usuario.agregarAuthority(authority);
+			usuario.setEnabled(true);
+			BCryptPasswordEncoder bCryptPasswordEncoder= new BCryptPasswordEncoder(4);
+			usuario.setPassword(bCryptPasswordEncoder.encode(usuario.getPassword()));
+			System.out.println(usuario.toString());
+			usuarioRepository.save(usuario);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 	public void guardarPeliculaFavorita(int id,String username) {
 		try {
 			Usuario user = usuarioRepository.findByUsername(username);
