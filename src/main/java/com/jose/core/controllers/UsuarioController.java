@@ -12,6 +12,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.jose.core.constantes.Pagina;
 import com.jose.core.model.Genero;
@@ -43,16 +44,19 @@ public class UsuarioController {
 	}
 
 	@GetMapping("/usuario")
-	public String usuario(Model model, Principal principal) {
+	public String usuario(@PathVariable(name = "favorito",required = false)Boolean favorito,Model model, Principal principal) {
 		LOG.info("URL: /usuario  ---  METODO: usuario()");
 		List peliculas = peliculaService.listaPeliculas();
 		List generos = generoService.listaGeneros();
 		model.addAttribute("peliculas", peliculas);
 		model.addAttribute("generos", generos);
+		model.addAttribute("nombreTabla", "Peliculas");
+		model.addAttribute("favorito", new Boolean(true));
 		LOG.info("USUARIO LOGUEADO: "+principal.getName());
 		LOG.info("PARAMETROS:"); 
 		LOG.info("peliculas: "+peliculas);
 		LOG.info("generos: "+generos);
+		
 		return Pagina.USUARIO;
 	}
 
@@ -63,6 +67,7 @@ public class UsuarioController {
 		List generos = generoService.listaGeneros();
 		model.addAttribute("peliculas", peliculasFavoritas);
 		model.addAttribute("generos", generos);
+		model.addAttribute("nombreTabla", "Favoritos");
 		LOG.info("PARAMETROS ENVIADOS: ");
 		LOG.info("peliculas= "+peliculasFavoritas);
 		LOG.info("generos: "+generos);
@@ -78,7 +83,7 @@ public class UsuarioController {
 		model.addAttribute("peliculas", peliculaGenero);
 		model.addAttribute("generos", listaGeneros);
 		model.addAttribute("nombreTabla","Peliculas");
-		
+		model.addAttribute("favorito", new Boolean(true));
 		LOG.info("URL: /genero   ---   METHOD: peliculasGenero()");
 		LOG.info("PARAMETRO RECIBIDO: genero="+genero);
 		LOG.info("PARAMETRO ENVIADO: ");

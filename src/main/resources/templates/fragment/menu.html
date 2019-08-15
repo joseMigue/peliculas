@@ -20,15 +20,7 @@
       <li sec:authorize="hasRole('ROLE_ADMIN')" class="nav-item">
         <a class="nav-link" th:href="@{/usuarios}">Usuarios</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Estrenos</a>
-      </li>
-      <li sec:authorize="hasRole('ROLE_USER')" class="nav-item">
-        <a class="nav-link" th:href="@{/favoritos}">Favoritos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Vistas</a>
-      </li>                                          
+                                                
       <li sec:authorize="hasRole('ROLE_USER')"class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Genero
@@ -36,6 +28,9 @@
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           <a th:each="genero : ${generos}"class="dropdown-item" th:href="@{/genero(genero=${genero.nombre})}" th:text="${genero.nombre}">p</a>         
         </div>
+      </li>
+      <li sec:authorize="hasRole('ROLE_USER')" class="nav-item">
+        <a class="nav-link" th:href="@{/favoritos}">Favoritos</a>
       </li>
     </ul>
     <form class="form-inline my-2 my-lg-0" th:action="@{/logout}" method="post">

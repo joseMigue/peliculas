@@ -8,6 +8,6 @@
 <body>
 <nav th:replace="fragment/menu::menu">	
 </nav>
-  <table th:replace="fragment/tabla::tablaPeliculas"></table>
+  <table th:replace="fragment/tabla::tabla+${nombreTabla}"></table>
 </body>
 </html>
