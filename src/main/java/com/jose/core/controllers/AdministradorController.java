@@ -63,6 +63,10 @@ public class AdministradorController {
 		return "redirect:/usuarios";
 	}
 	
-
+	@GetMapping("/cancel")
+	public String cancel() {	
+		LOG.info("URL: /cancel --- METODO: cancel()");
+		return "redirect:/administrador";
+	}
 
 }

@@ -17,11 +17,11 @@
 		<input type="text" class="form-control mb-4" th:field="*{titulo}" placeholder="Titulo" >
 		
         
-		<span th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></span>
+		<p th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}"></p>
 		<input type="text" class="form-control mb-4"th:field="*{descripcion}" placeholder="Descripcion">
         
         
-	    <span th:if="${#fields.hasErrors('idiomas')}" th:errors="*{idiomas}"></span>
+	    <p th:if="${#fields.hasErrors('idiomas')}" th:errors="*{idiomas}"></p>
 		<input type="text" class="form-control mb-4"th:field="*{idiomas}" placeholder="Idioma">
 	        
         
@@ -35,9 +35,7 @@
         	</select>
         </div>    
         <button class="btn btn-primary btn-block mb-4"type="submit" value="enviar">Enviar</button>
-    	<a th:href="@{/cancel}">
-      		<button class="btn btn-danger btn-block">Volver</button>    
-        </a>
+    	<a th:href="@{/cancel}"><button class="btn btn-danger btn-block" type="button">Volver</button></a>
     </form>
 </div>
 </body>

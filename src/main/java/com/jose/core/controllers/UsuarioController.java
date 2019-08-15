@@ -37,11 +37,7 @@ public class UsuarioController {
 	
 	private static final Log LOG = LogFactory.getLog(UsuarioController.class);
 	
-	@GetMapping("/cancel")
-	public String cancel() {	
-		LOG.info("URL: /cancel --- METODO: cancel()");
-		return "redirect:/administrador";
-	}
+
 
 	@GetMapping("/usuario")
 	public String usuario(@PathVariable(name = "favorito",required = false)Boolean favorito,Model model, Principal principal) {
